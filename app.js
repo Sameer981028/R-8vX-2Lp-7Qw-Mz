@@ -277,8 +277,19 @@ document.addEventListener('DOMContentLoaded', () => {
      // 2. Override with real data if available in the row context!
      if (tr) {
         let cells = tr.querySelectorAll('td');
-        if (cells.length === 13) {
-           // Order Management Table format!
+        if (cells.length === 14) {
+           // Order Management Table format (including S.No)
+           name = cells[1].textContent.trim();
+           courier = cells[2].textContent.trim();
+           state = cells[3].textContent.trim();
+           awb = "AWB: " + cells[5].textContent.trim();
+           sku = cells[6].textContent.trim();
+           variant = `${cells[7].textContent.trim()} | ${cells[9].textContent.trim()} | Qty: ${cells[8].textContent.trim()}`;
+           let amtStr = cells[11].textContent.trim().replace(/[^0-9.]/g, '');
+           if(amtStr) gross = parseFloat(amtStr);
+           status = cells[13].textContent.trim(); 
+        } else if (cells.length === 13) {
+           // Legacy Order Management Table format (without S.No)
            name = cells[0].textContent.trim();
            courier = cells[1].textContent.trim();
            state = cells[2].textContent.trim();
@@ -288,13 +299,26 @@ document.addEventListener('DOMContentLoaded', () => {
            let amtStr = cells[10].textContent.trim().replace(/[^0-9.]/g, '');
            if(amtStr) gross = parseFloat(amtStr);
            status = cells[12].textContent.trim(); 
+        } else if (cells.length === 11) {
+           // Returns Table format (including S.No)
+           status = cells[10].textContent.trim();
+           if(cells[2].textContent.includes('RTO')) status = 'RTO';
+           courier = cells[8].textContent.trim();
         } else if (cells.length === 10) {
-           // Returns Table format
+           // Legacy Returns Table format (without S.No)
            status = cells[9].textContent.trim();
            if(cells[1].textContent.includes('RTO')) status = 'RTO';
            courier = cells[7].textContent.trim();
+        } else if (cells.length === 18) {
+           // Payments Table format (including S.No)
+           status = cells[5].textContent.trim();
+           sku = cells[4].textContent.trim();
+           let amtStr = cells[9].textContent.trim().replace(/[^0-9.-]/g, '');
+           if(amtStr) gross = parseFloat(amtStr);
+           let shipStr = cells[12].textContent.trim().replace(/[^0-9.-]/g, '');
+           if(shipStr) shipping = Math.abs(parseFloat(shipStr));
         } else if (cells.length === 17) {
-           // Payments Table format
+           // Legacy Payments Table format (without S.No)
            status = cells[4].textContent.trim();
            sku = cells[3].textContent.trim();
            let amtStr = cells[8].textContent.trim().replace(/[^0-9.-]/g, '');
