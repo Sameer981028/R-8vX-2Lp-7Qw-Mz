@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCRM - Return Tracking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <style> .panel{display:block;} </style>
+  </head>
+<body>
+  <div class="sidebar d-flex flex-column">
+    <a href="index.html" class="brand">
+      <i class="bi bi-hexagon text-primary"></i>
+      MCRM
+    </a>
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="orders.html" class="nav-link">
+          <i class="bi bi-box-seam"></i><span>Order Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="returns.html" class="nav-link active">
+          <i class="bi bi-arrow-return-left"></i><span>Return Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="payments.html" class="nav-link">
+          <i class="bi bi-credit-card"></i><span>Payment Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="inventory.html" class="nav-link">
+          <i class="bi bi-layers"></i><span>Inventory Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="expenses.html" class="nav-link">
+          <i class="bi bi-receipt"></i><span>Expense Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="pnl.html" class="nav-link">
+          <i class="bi bi-graph-up-arrow"></i><span>Profit & Loss</span>
+        </a>
+      </li>
+      <div class="px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; font-weight: 600;">System Actions</div>
+      <li class="nav-item">
+        <a href="legacy.html" class="nav-link">
+          <i class="bi bi-cloud-upload"></i><span>Previous Data Upload</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-wrapper">
+    <header class="top-header">
+      <div class="d-flex align-items-center gap-3">
+        <button id="sidebar-toggle" class="btn btn-sm btn-light border-0 shadow-none bg-transparent" title="Toggle Sidebar">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <h2 id="header-title" class="header-title">Return Tracking</h2>
+      </div>
+      <div class="header-right">
+        <div class="search-bar">
+          <i class="bi bi-search"></i>
+          <input type="text" class="form-control" placeholder="Search Order ID...">
+        </div>
+        <div class="dropdown">
+          <div class="profile-avatar dropdown-toggle" role="button" data-bs-toggle="dropdown">KM</div>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <div class="row g-3 mb-4">
+        <div class="col-md-2">
+          <div class="card metric-card h-100 border-start border-primary border-4 shadow-sm">
+            <div class="title text-muted text-uppercase mb-1"><i class="bi bi-truck text-primary me-1"></i>In-Transit</div>
+            <div class="d-flex align-items-baseline gap-2">
+              <div class="value fs-4 fw-bold text-dark">142</div>
+              <span class="text-success small fw-bold"><i class="bi bi-arrow-up-short"></i>12%</span>
+            </div>
+            <div class="text-muted small mt-1">vs Last Month</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card metric-card h-100 border-start border-success border-4 shadow-sm">
+            <div class="title text-muted text-uppercase mb-1"><i class="bi bi-check-circle text-success me-1"></i>Delivered Today</div>
+            <div class="d-flex align-items-baseline gap-2">
+              <div class="value fs-4 fw-bold text-dark">18</div>
+              <span class="text-success small fw-bold"><i class="bi bi-arrow-up-short"></i>5%</span>
+            </div>
+            <div class="text-muted small mt-1">vs Last Month</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card metric-card h-100 border-start border-danger border-4 shadow-sm">
+            <div class="title text-muted text-uppercase mb-1"><i class="bi bi-clock-history text-danger me-1"></i>Delayed (>25 Days)</div>
+            <div class="d-flex align-items-baseline gap-2">
+              <div class="value fs-4 fw-bold text-dark">24</div>
+              <span class="text-danger small fw-bold"><i class="bi bi-arrow-up-short"></i>8%</span>
+            </div>
+            <div class="text-muted small mt-1">vs Last Month</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card metric-card h-100 border-start border-warning border-4 shadow-sm">
+            <div class="title text-muted text-uppercase mb-1"><i class="bi bi-arrow-return-left text-warning me-1"></i>RTO %</div>
+            <div class="d-flex align-items-baseline gap-2">
+              <div class="value fs-4 fw-bold text-dark">14.2%</div>
+              <span class="text-success small fw-bold"><i class="bi bi-arrow-down-short"></i>2.1%</span>
+            </div>
+            <div class="text-muted small mt-1">vs Last Month</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card metric-card h-100 border-start border-info border-4 shadow-sm">
+            <div class="title text-muted text-uppercase mb-1"><i class="bi bi-person-exclamation text-info me-1"></i>Customer Return %</div>
+            <div class="d-flex align-items-baseline gap-2">
+              <div class="value fs-4 fw-bold text-dark">5.8%</div>
+              <span class="text-danger small fw-bold"><i class="bi bi-arrow-up-short"></i>0.4%</span>
+            </div>
+            <div class="text-muted small mt-1">vs Last Month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-7">
+          <div class="card h-100 mb-0">
+            <div class="card-body">
+              <h6 class="mb-3 text-muted">Bulk Status Update</h6>
+              <div class="upload-zone py-4">
+                <i class="bi bi-file-earmark-arrow-up fs-2"></i>
+                <h6>Upload In-Transit/Delivered Return Sheet</h6>
+                <p class="small">Upload logistics partner return manifest to verify stocks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card h-100 mb-0">
+            <div class="card-header bg-white border-0 pt-3">
+              <h6 class="mb-0 text-muted">Manual Return Status Change</h6>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label small fw-medium">Order / Tracking ID</label>
+                  <input type="text" class="form-control" placeholder="e.g. #ORD-001 or AWB...">
+                </div>
+                <div class="mb-4">
+                  <label class="form-label small fw-medium">New Status</label>
+                  <select class="form-select">
+                    <option>RTO Initiated</option>
+                    <option>Out for Delivery (Return)</option>
+                    <option>Received In Warehouse</option>
+                    <option>Damaged Return</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-primary w-100">Update Status</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Upcoming & Received Returns</span>
+          <input type="month" class="form-control form-control-sm w-auto">
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" style="font-size: 0.85rem; white-space: nowrap;">
+              <thead class="table-light">
+                <tr>
+                  <th class="ps-4">S.No</th>
+                  <th>Suborder ID</th>
+                  <th>Return Type</th>
+                  <th>Return Reason</th>
+                  <th>Return Shipping Fee</th>
+                  <th>Created Date</th>
+                  <th>Expected Delivery</th>
+                  <th>AWB Number</th>
+                  <th>Courier Partner</th>
+                  <th>Delivered on</th>
+                  <th class="pe-4">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ps-4 text-muted">1</td>
+                  <td class="fw-medium text-primary">268024081999003008_1</td>
+                  <td>Courier Return (RTO)</td>
+                  <td class="text-muted">N/A</td>
+                  <td>₹0</td>
+                  <td>29 Mar'26</td>
+                  <td>10 May'26</td>
+                  <td class="text-muted">1490830250299456</td>
+                  <td>Delhivery</td>
+                  <td class="text-muted">-</td>
+                  <td class="pe-4"><span class="badge bg-info bg-opacity-10 text-info">In Transit</span></td>
+                </tr>
+                <tr>
+                  <td class="ps-4 text-muted">2</td>
+                  <td class="fw-medium text-primary">267218510882738880_1</td>
+                  <td>Courier Return (RTO)</td>
+                  <td class="text-muted">N/A</td>
+                  <td>₹0</td>
+                  <td>28 Mar'26</td>
+                  <td>8 May'26</td>
+                  <td class="text-muted">VL0083869045192</td>
+                  <td>Valmo</td>
+                  <td class="text-muted">-</td>
+                  <td class="pe-4"><span class="badge bg-info bg-opacity-10 text-info">In Transit</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="orderDnaModal" tabindex="-1" aria-labelledby="orderDnaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h5 class="modal-title fw-bold" id="orderDnaModalLabel">Order Intelligence <span id="modalOrderId" class="text-primary fs-6 ms-2">#...</span></h5>
+          <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <div class="p-3 bg-light rounded-3 mb-4 border">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Customer</div>
+                <div class="fw-bold" id="modalCustomerName">--</div>
+                <div class="small text-muted" id="modalLocation">--</div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Product Details</div>
+                <div class="fw-bold" id="modalSku">--</div>
+                <div class="small text-muted" id="modalVariant">--</div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Logistics</div>
+                <div class="fw-bold" id="modalCourier">--</div>
+                <div class="small text-muted" id="modalAwb">--</div>
+              </div>
+            </div>
+          </div>
+          <h6 class="fw-bold mb-3">Order Lifecycle</h6>
+          <div class="position-relative mb-4 pb-2">
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" id="modalProgress"></div>
+            </div>
+            <div class="d-flex justify-content-between mt-2 position-relative px-2">
+               <div class="text-center" style="width: 70px; margin-left: -35px;">
+                 <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-1" style="width: 28px; height: 28px; font-size: 14px; z-index: 2; position: relative; margin-top: -21px;"><i class="bi bi-check"></i></div>
+                 <div class="small fw-semibold">Placed</div>
+               </div>
+               <div class="text-center" style="width: 70px; margin-left: -35px;">
+                 <div class="rounded-circle bg-light border text-muted d-flex align-items-center justify-content-center mx-auto mb-1" style="width: 28px; height: 28px; font-size: 14px; z-index: 2; position: relative; margin-top: -21px;" id="stepDispatched"><i class="bi bi-truck"></i></div>
+                 <div class="small fw-semibold text-muted" id="labelDispatched">Dispatched</div>
+               </div>
+               <div class="text-center" style="width: 70px; margin-left: -35px;">
+                 <div class="rounded-circle bg-light border text-muted d-flex align-items-center justify-content-center mx-auto mb-1" style="width: 28px; height: 28px; font-size: 14px; z-index: 2; position: relative; margin-top: -21px;" id="stepDelivered"><i class="bi bi-box-seam"></i></div>
+                 <div class="small fw-semibold text-muted" id="labelDelivered">Delivered</div>
+               </div>
+               <div class="text-center" style="width: 70px; margin-right: -35px;">
+                 <div class="rounded-circle bg-light border text-muted d-flex align-items-center justify-content-center mx-auto mb-1" style="width: 28px; height: 28px; font-size: 14px; z-index: 2; position: relative; margin-top: -21px;" id="stepSettled"><i class="bi bi-currency-rupee"></i></div>
+                 <div class="small fw-semibold text-muted" id="labelSettled">Settled</div>
+               </div>
+            </div>
+          </div>
+          <h6 class="fw-bold mb-3">Unit Economics</h6>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body p-3">
+                  <div class="text-muted small mb-1">Gross Sale</div>
+                  <div class="fw-bold fs-5" id="modalGross">--</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body p-3">
+                  <div class="text-muted small mb-1">Shipping & Fees</div>
+                  <div class="fw-bold fs-5 text-danger" id="modalFees">--</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card h-100 border-0 bg-light">
+                <div class="card-body p-3">
+                  <div class="text-muted small mb-1">Product Cost</div>
+                  <div class="fw-bold fs-5 text-danger" id="modalCost">--</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card h-100 border-0 bg-primary bg-opacity-10" id="modalNetCard">
+                <div class="card-body p-3">
+                  <div class="small fw-semibold mb-1" id="modalNetLabel" class="text-primary">Net Profit</div>
+                  <div class="fw-bold fs-5 text-primary" id="modalNet">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="app.js"></script>
+</body>
+</html>

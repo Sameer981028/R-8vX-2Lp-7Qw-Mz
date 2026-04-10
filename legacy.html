@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCRM - Legacy Data Upload</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <style> .panel{display:block;} </style>
+</head>
+<body>
+  <div class="sidebar d-flex flex-column">
+    <a href="index.html" class="brand">
+      <i class="bi bi-hexagon text-primary"></i>
+      MCRM
+    </a>
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="orders.html" class="nav-link">
+          <i class="bi bi-box-seam"></i><span>Order Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="returns.html" class="nav-link">
+          <i class="bi bi-arrow-return-left"></i><span>Return Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="payments.html" class="nav-link">
+          <i class="bi bi-credit-card"></i><span>Payment Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="inventory.html" class="nav-link">
+          <i class="bi bi-layers"></i><span>Inventory Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="expenses.html" class="nav-link">
+          <i class="bi bi-receipt"></i><span>Expense Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="pnl.html" class="nav-link">
+          <i class="bi bi-graph-up-arrow"></i><span>Profit & Loss</span>
+        </a>
+      </li>
+      <div class="px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; font-weight: 600;">System Actions</div>
+      <li class="nav-item">
+        <a href="legacy.html" class="nav-link active">
+          <i class="bi bi-cloud-upload"></i><span>Previous Data Upload</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-wrapper">
+    <header class="top-header">
+      <div class="d-flex align-items-center gap-3">
+        <button id="sidebar-toggle" class="btn btn-sm btn-light border-0 shadow-none bg-transparent" title="Toggle Sidebar">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <h2 id="header-title" class="header-title">Legacy Data Upload</h2>
+      </div>
+      <div class="header-right">
+        <div class="search-bar">
+          <i class="bi bi-search"></i>
+          <input type="text" class="form-control" placeholder="Search...">
+        </div>
+        <div class="dropdown">
+          <div class="profile-avatar dropdown-toggle" role="button" data-bs-toggle="dropdown">KM</div>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <div class="alert alert-warning d-flex align-items-center mb-4 border-0 shadow-sm" role="alert" style="background-color: #fffbeb;">
+        <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3 fs-3 text-warning"></i>
+        <div class="text-dark">
+          <strong>Historical Data Backfill Information</strong><br>
+          Uploading heavy multi-year archival sheets may take significant operational time to structure internally. Please ensure strict conformation to base sheet templating structures before execution.
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 pt-4 pb-2">
+              <h5 class="mb-0 d-flex align-items-center gap-2"><i class="bi bi-cloud-arrow-up text-primary"></i> Older Month Order Data</h5>
+            </div>
+            <div class="card-body">
+              <div class="upload-zone py-5 bg-white">
+                <i class="bi bi-file-earmark-spreadsheet text-primary" style="font-size: 3rem;"></i>
+                <h5 class="mt-3">Upload Order Sheet</h5>
+                <p class="mb-3 text-muted">Supported formats: .csv, .xlsx</p>
+                <button class="btn btn-primary px-4 py-2 fw-medium d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-folder-symlink"></i> Select Order File
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 pt-4 pb-2">
+              <h5 class="mb-0 d-flex align-items-center gap-2"><i class="bi bi-credit-card-2-back-fill text-success"></i> Monthly Payment Data</h5>
+            </div>
+            <div class="card-body">
+              <div class="upload-zone py-5 bg-white">
+                <i class="bi bi-bank2 text-success" style="font-size: 3rem;"></i>
+                <h5 class="mt-3">Upload Payment Settlement Sheet</h5>
+                <p class="mb-3 text-muted">Supported formats: .csv, .xlsx</p>
+                <button class="btn btn-success px-4 py-2 fw-medium d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-folder-symlink"></i> Select Payment File
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="app.js"></script>
+</body>
+</html>
