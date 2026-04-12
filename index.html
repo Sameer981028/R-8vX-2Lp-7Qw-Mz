@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCRM - Monthly Business Health Dashboard</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column">
+    <a href="index.html" class="brand">
+      <i class="bi bi-hexagon text-primary"></i>
+      MCRM
+    </a>
+    
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link active">
+          <i class="bi bi-grid-1x2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="orders.html" class="nav-link">
+          <i class="bi bi-box-seam"></i>
+          <span>Order Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="returns.html" class="nav-link">
+          <i class="bi bi-arrow-return-left"></i>
+          <span>Return Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="payments.html" class="nav-link">
+          <i class="bi bi-credit-card"></i>
+          <span>Payment Tracking</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="inventory.html" class="nav-link">
+          <i class="bi bi-layers"></i>
+          <span>Inventory Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="expenses.html" class="nav-link">
+          <i class="bi bi-receipt"></i>
+          <span>Expense Management</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="pnl.html" class="nav-link">
+          <i class="bi bi-graph-up-arrow"></i>
+          <span>Profit & Loss</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="gst.html" class="nav-link">
+          <i class="bi bi-calculator"></i>
+          <span>GST Calculation</span>
+        </a>
+      </li>
+      <div class="px-3 mt-4 mb-2 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; font-weight: 600;">System Actions</div>
+      <li class="nav-item">
+        <a href="legacy.html" class="nav-link">
+          <i class="bi bi-cloud-upload"></i>
+          <span>Previous Data Upload</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="d-flex align-items-center gap-3">
+        <button id="sidebar-toggle" class="btn btn-sm btn-light border-0 shadow-none bg-transparent" title="Toggle Sidebar">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <h2 id="header-title" class="header-title">Monthly Business Health</h2>
+      </div>
+      
+      <div class="header-right">
+        <div class="search-bar">
+          <i class="bi bi-search"></i>
+          <input type="text" class="form-control" placeholder="Search Order ID...">
+        </div>
+        <div class="dropdown">
+          <div class="profile-avatar dropdown-toggle" role="button" data-bs-toggle="dropdown">KM</div>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content Area -->
+    <div class="content-area">
+      <!-- Dashboard Filters & Range Selection -->
+      <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body p-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="fw-bold small text-muted text-uppercase">Analysis Period:</span>
+            <div class="btn-group btn-group-sm" role="group" id="periodFilters">
+              <button type="button" class="btn btn-outline-primary active" data-range="2M">2M</button>
+              <button type="button" class="btn btn-outline-primary" data-range="6M">6M</button>
+              <button type="button" class="btn btn-outline-primary" data-range="9M">9M</button>
+              <button type="button" class="btn btn-outline-primary" data-range="12M">12M</button>
+              <button type="button" class="btn btn-outline-primary" data-range="all">All Time</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar3"></i></span>
+              <input type="date" class="form-control border-start-0" id="startDate" value="2026-02-12">
+            </div>
+            <span class="text-muted small">to</span>
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar3"></i></span>
+              <input type="date" class="form-control border-start-0" id="endDate" value="2026-04-12">
+            </div>
+            <button class="btn btn-sm btn-primary px-3" id="applyRange">Apply</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <ul class="nav nav-pills mb-4 gap-2" id="dashboardTabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview" type="button">Overview & Health</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#growth" type="button">Growth & Trends</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#efficiency" type="button">Efficiency & P&L</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#forecasting" type="button">Forecasting & Seasonal</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sku" type="button">SKU Portfolio</button></li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- TAB 1: OVERVIEW & HEALTH -->
+        <div class="tab-pane fade show active" id="overview">
+          <!-- Section 1: Executive Summary Cards -->
+          <div class="dashboard-section mb-4">
+            <h5 class="section-title"><i class="bi bi-lightning-charge"></i> Summary for Selected Range</h5>
+            <div class="row g-2">
+              <!-- Volume Metrics -->
+              <div class="col-md-3">
+                <div class="card metric-card">
+                  <div class="stat-icon bg-primary">
+                    <i class="bi bi-box-seam"></i>
+                  </div>
+                  <div class="metric-label">Range Total Orders</div>
+                  <div class="metric-value-wrapper">
+                    <div class="metric-value" id="totalOrders">0</div>
+                    <div class="metric-trend" id="totalOrdersTrend">--</div>
+                  </div>
+                  <div class="metric-subtext">Total volume in range</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card metric-card">
+                  <div class="stat-icon bg-success">
+                    <i class="bi bi-currency-rupee"></i>
+                  </div>
+                  <div class="metric-label">Range Net Revenue</div>
+                  <div class="metric-value-wrapper">
+                    <div class="metric-value" id="netRevenue">₹0</div>
+                    <div class="metric-trend" id="netRevenueTrend">--</div>
+                  </div>
+                  <div class="metric-subtext">Net sales after returns</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card metric-card">
+                  <div class="stat-icon bg-info">
+                    <i class="bi bi-piggy-bank"></i>
+                  </div>
+                  <div class="metric-label">Range Gross Profit</div>
+                  <div class="metric-value-wrapper">
+                    <div class="metric-value" id="grossProfit">₹0</div>
+                    <div class="metric-trend" id="grossProfitTrend">--</div>
+                  </div>
+                  <div class="metric-subtext">Est. gross margin</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card metric-card">
+                  <div class="stat-icon bg-warning">
+                    <i class="bi bi-shield-check"></i>
+                  </div>
+                  <div class="metric-label">Success Rate</div>
+                  <div class="metric-value-wrapper">
+                    <div class="metric-value" id="successRateSummary">0%</div>
+                    <div class="metric-trend" id="successRateTrend">--</div>
+                  </div>
+                  <div class="metric-subtext">Delivery success ratio</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Core Trend Charts (THE MAIN FOCUS NOW) -->
+          <div class="dashboard-section">
+            <h5 class="section-title"><i class="bi bi-graph-up-arrow"></i> Growth & Performance Reports</h5>
+            <div class="row g-4">
+              <div class="col-md-8">
+                <div class="card p-3 border-0 shadow-sm h-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold m-0">Revenue & Profit Trend Analysis</h6>
+                    <div class="dropdown">
+                      <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown">Metric: Revenue</button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Revenue</a></li>
+                        <li><a class="dropdown-item" href="#">Profit</a></li>
+                        <li><a class="dropdown-item" href="#">Units Sold</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div id="mainTrendChart" style="min-height: 350px;"></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card p-3 border-0 shadow-sm h-100">
+                  <h6 class="fw-bold mb-3">Health Indices Trend</h6>
+                  <div id="healthTrendChart" style="min-height: 350px;"></div>
+                </div>
+              </div>
+              
+              <!-- Operational Breakdown Trends -->
+              <div class="col-md-6">
+                <div class="card p-3 border-0 shadow-sm">
+                  <h6 class="fw-bold mb-3">Order Status Distribution Report</h6>
+                  <div id="statusTrendChart" style="min-height: 300px;"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card p-3 border-0 shadow-sm">
+                  <h6 class="fw-bold mb-3">Reverse Logistics (RTO/Return) Trend</h6>
+                  <div id="reverseTrendChart" style="min-height: 300px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Key Anomaly Reports (Visualized) -->
+          <div class="dashboard-section mt-4">
+            <h5 class="section-title"><i class="bi bi-exclamation-triangle"></i> Automated Anomaly Log (Selected Range)</h5>
+            <div class="card p-3 border-0 shadow-sm">
+              <div class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                  <thead class="table-light">
+                    <tr><th>Event Date</th><th>Metric</th><th>Anomaly Type</th><th>Description</th><th>Impact</th></tr>
+                  </thead>
+                  <tbody id="anomalyRangeList">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: GROWTH & TRENDS -->
+        <div class="tab-pane fade" id="growth">
+          <div class="row g-4">
+            <!-- Section 3 & 4: MoM & YoY -->
+            <div class="col-md-6">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-graph-up"></i> MoM Comparisons</h5>
+                <div class="card p-3">
+                  <div class="row g-2" id="momGrid"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-calendar-check"></i> YoY Comparisons</h5>
+                <div class="card p-3">
+                  <div class="row g-2" id="yoyGrid"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Section 5: Cumulative & Rolling Metrics -->
+            <div class="col-12">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-water"></i> Cumulative & Rolling Performance</h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <div class="card p-3 h-100">
+                      <h6 class="fw-bold small">Financial Year to Date</h6>
+                      <div class="mt-3">
+                        <div class="mb-3">
+                          <span class="metric-label">Cumulative Revenue</span>
+                          <span class="h4 fw-bold" id="cumRevenue">₹0</span>
+                        </div>
+                        <div>
+                          <span class="metric-label">Cumulative Profit</span>
+                          <span class="h4 fw-bold text-success" id="cumProfit">₹0</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card p-3 h-100">
+                      <h6 class="fw-bold small">3-Month & 6-Month Moving Averages</h6>
+                      <div id="movingAvgChart" style="min-height: 250px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: EFFICIENCY & P&L -->
+        <div class="tab-pane fade" id="efficiency">
+          <!-- Section 2: Performance Ratios & Percentages -->
+          <div class="dashboard-section">
+            <h5 class="section-title"><i class="bi bi-percent"></i> Performance Ratios</h5>
+            <div class="row g-3" id="ratiosGrid">
+              <!-- Success, RTO, Return, Cancellation, Exchange, Failure Rate -->
+            </div>
+          </div>
+
+          <div class="row g-3 mt-3">
+            <!-- Section 11: Loss & Leakage Tracking -->
+            <div class="col-md-7">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-droplet-half"></i> Loss & Leakage Analysis</h5>
+                <div class="card p-3">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-md-5">
+                      <div id="leakageDonutChart"></div>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="table-responsive">
+                        <table class="table table-sm border-0">
+                          <tbody id="lossTableBody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Section 12: Benchmark Comparison -->
+            <div class="col-md-5">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-bullseye"></i> Target vs Actual Benchmarks</h5>
+                <div class="card p-3 h-100 benchmark-card">
+                  <div id="benchmarkContainer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2 (Operational Efficiency) -->
+          <div class="dashboard-section mt-4">
+            <h5 class="section-title"><i class="bi bi-gear"></i> Operational Efficiency</h5>
+            <div class="row g-3">
+              <div class="col-md-3">
+                <div class="metric-card"><span class="metric-label">Avg Order Value (AOV)</span><span class="metric-value" id="aovValue">₹0</span></div>
+              </div>
+              <div class="col-md-3">
+                <div class="metric-card"><span class="metric-label">Avg Selling Price (ASP)</span><span class="metric-value" id="aspValue">₹0</span></div>
+              </div>
+              <div class="col-md-3">
+                <div class="metric-card"><span class="metric-label">Avg Cost per Unit</span><span class="metric-value" id="acuValue">₹0</span></div>
+              </div>
+              <div class="col-md-3">
+                <div class="metric-card"><span class="metric-label">Packaging Loss / Order</span><span class="metric-value text-danger" id="pkgLossValue">₹0</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: FORECASTING & SEASONAL -->
+        <div class="tab-pane fade" id="forecasting">
+          <div class="row g-3">
+            <!-- Section 8: Seasonal & Trend Indicators -->
+            <div class="col-md-8">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-snow"></i> Seasonal Insights</h5>
+                <div class="card p-3">
+                  <div id="seasonalityChart" style="min-height: 300px;"></div>
+                  <div class="row mt-3 text-center g-2">
+                    <div class="col-md-6"><div class="p-2 bg-light rounded small"><strong>Peak Season:</strong> <span id="peakSeason">--</span></div></div>
+                    <div class="col-md-6"><div class="p-2 bg-light rounded small"><strong>Lean Season:</strong> <span id="leanSeason">--</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Section 9: Forward-Looking Forecast -->
+            <div class="col-md-4">
+              <div class="dashboard-section">
+                <h5 class="section-title"><i class="bi bi-crystal-ball"></i> Future Projections</h5>
+                <div class="card p-3 forecast-card">
+                  <div class="mb-4">
+                    <h6 class="small fw-bold text-uppercase text-muted">Next Month Estimates</h6>
+                    <div class="d-flex justify-content-between mb-2"><span>Revenue</span><span class="fw-bold" id="forecastRevenue">₹0</span></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Profit</span><span class="fw-bold text-success" id="forecastProfit">₹0</span></div>
+                    <div class="d-flex justify-content-between mb-2"><span>Order Volume</span><span class="fw-bold" id="forecastVolume">0</span></div>
+                  </div>
+                  <hr>
+                  <div>
+                    <h6 class="small fw-bold text-uppercase text-muted">Cash Flow Gap</h6>
+                    <div class="d-flex justify-content-between mb-2"><span>Indicator</span><span class="badge bg-warning text-dark" id="cashFlowGap">0%</span></div>
+                    <div class="d-flex justify-content-between"><span>Next Settlement</span><span class="fw-bold" id="nextSettlement">₹0</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Quarterly Totals -->
+          <div class="dashboard-section mt-4">
+            <h5 class="section-title"><i class="bi bi-pie-chart"></i> Quarterly Performance</h5>
+            <div id="quarterlyChart" style="min-height: 250px;"></div>
+          </div>
+        </div>
+
+        <!-- TAB 5: SKU PORTFOLIO -->
+        <div class="tab-pane fade" id="sku">
+          <!-- Section 10: SKU-Level Health -->
+          <div class="dashboard-section">
+            <h5 class="section-title"><i class="bi bi-box"></i> SKU Performance Health</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="card p-3 h-100">
+                  <h6 class="fw-bold small mb-3">Top Contributors (Profit)</h6>
+                  <div id="topSkuProfitChart"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card p-3 h-100">
+                  <h6 class="fw-bold small mb-3">Top Contributors (Revenue)</h6>
+                  <div id="topSkuRevenueChart"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card p-3 h-100">
+                  <h6 class="fw-bold small mb-3">Worst Performers (RTO Rate)</h6>
+                  <div id="worstSkuRtoChart"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card p-3 h-100">
+                  <h6 class="fw-bold small mb-3">Worst Performers (Return Rate)</h6>
+                  <div id="worstSkuReturnChart"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 mt-3">
+               <div class="d-flex justify-content-between align-items-center">
+                 <span class="fw-bold small">Active SKUs this Month</span>
+                 <span class="badge bg-primary fs-6" id="activeSkusCount">0</span>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end content-area -->
+  </div><!-- end main wrapper -->
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ApexCharts -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <!-- Custom JS -->
+  <script src="app.js"></script>
+</body>
+</html>
